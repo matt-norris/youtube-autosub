@@ -7,6 +7,7 @@ export default function Sidebar({ activeView, onViewChange }) {
 
   const menuItems = [
     { id: "import", label: "Import & Sync", icon: "⚡" },
+    { id: "packs", label: "Starter Packs", icon: "🎁" },
     { id: "subscriptions", label: "My Subscriptions", icon: "📺" },
   ];
 

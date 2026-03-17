@@ -7,6 +7,7 @@ import ChannelSearch from "./ChannelSearch";
 import ChannelList from "./ChannelList";
 import AutoSubProgress from "./AutoSubProgress";
 import MySubscriptions from "./MySubscriptions";
+import StarterPacks from "./StarterPacks";
 
 export default function Dashboard() {
   const [activeView, setActiveView] = useState("import");
@@ -51,6 +52,18 @@ export default function Dashboard() {
         `Loaded ${subs.length} subscriptions from ${channelTitle}`,
         "success"
       );
+    },
+    [addToast]
+  );
+
+  const handlePackLoaded = useCallback(
+    (packChannels, packName) => {
+      setChannels(packChannels);
+      const ids = new Set(packChannels.map((ch) => ch.channelId).filter(Boolean));
+      setSelectedIds(ids);
+      setSourceLabel(packName);
+      setActiveView("import");
+      addToast(`Loaded ${packChannels.length} channels from ${packName}`, "success");
     },
     [addToast]
   );
@@ -157,6 +170,10 @@ export default function Dashboard() {
               sourceLabel={sourceLabel}
             />
           </>
+        )}
+
+        {activeView === "packs" && (
+          <StarterPacks onPackLoaded={handlePackLoaded} />
         )}
 
         {activeView === "subscriptions" && <MySubscriptions />}
