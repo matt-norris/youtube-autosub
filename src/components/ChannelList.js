@@ -114,7 +114,7 @@ export default function ChannelList({
 
       <div className="channel-list">
         {filteredChannels.map((ch, idx) => (
-          <div key={ch.channelId || idx} className="channel-row">
+          <div key={`${ch.channelId || "ch"}-${idx}`} className="channel-row">
             {ch.channelId && (
               <input
                 type="checkbox"
